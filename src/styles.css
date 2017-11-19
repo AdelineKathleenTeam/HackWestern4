@@ -1,5 +1,23 @@
 @import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');
 
+body {
+  background: url("assets/background.jpg");
+  background-attachment: fixed;
+}
+
+.jumbotron {
+  /*background: url("assets/background.jpg");*/
+  background: RGBA(255,255,255,0.3);
+}
+
+.title-color{
+  color: #27232b;
+}
+
+.card {
+  background: RGBA(255,255,255,0.9);
+}
+
 #to_bring_list_column {
   text-align:left;
   font-size: 16px;
