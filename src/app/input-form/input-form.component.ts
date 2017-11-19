@@ -130,13 +130,20 @@ export class InputFormComponent implements OnInit {
       var cardSubtitle = document.createElement('h2');
       var cardText = document.createElement('p');
       var cardIcon = document.createElement('i');
+      var cardIcon2 = document.createElement('i');
+      card.innerHTML = "";
       cardIcon.className = "material-icons md-48";
+      cardIcon2.className = "material-icons md-48";
       cardIcon.innerHTML = "invert_colors";
+      cardIcon2.innerHTML = "";
       var s = f[i].forecastArr[1].feelsLike + '° / ' + f[i].forecastArr[0].feelsLike + '°';
       var t = '';
       if (f[i].snow > 0.1 && f[i].rain > 0.1){
         t += 'rain & snow';
+        console.log('here');
         cardIcon.className += " text-primary";
+        cardIcon2.className += " text-info";
+        cardIcon2.innerHTML = "ac_unit";
       } else if (f[i].rain > 0.1){
         t += 'rain';
         cardIcon.className += " text-primary";
@@ -171,6 +178,7 @@ export class InputFormComponent implements OnInit {
       cardSubtitle.innerHTML = s;
 
       cardText.appendChild(cardIcon);
+      cardText.appendChild(cardIcon2);
 
       card.appendChild(cardTitle);
       card.appendChild(cardSubtitle);
