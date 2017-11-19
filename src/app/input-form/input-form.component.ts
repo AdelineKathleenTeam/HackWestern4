@@ -11,7 +11,8 @@ export class InputFormComponent implements OnInit {
   keyword = new Input('');
   code : string = '';
   forcast : object = null; // data we get directly from the Weather Network API
-  display = []; // data formatted to be displayed in the html
+  toBringList = new Set();
+  // display = []; // data formatted to be displayed in the html
   weatherApi = null; // axios object used to send requests to Weather Network
 
   constructor() { }
@@ -33,8 +34,7 @@ export class InputFormComponent implements OnInit {
     var self = this;
     this.weatherApi.get('/search/string', {
       params: {
-    //    keyword: keyword.val.toLowerCase()
-        keyword: 'ottawa'
+        keyword: self.keyword.val.toLowerCase() //TODO: find a safer way to do this!!!!!
       }
     }).then(function(response){
       //save the code
@@ -51,26 +51,110 @@ export class InputFormComponent implements OnInit {
       }
     }).then(function(response){
       self.forcast = response.data.data;
-      self.formatForcast();
+      // self.formatForcast();
+      self.generateList();
+      self.showData();
     });
   }
 
-  formatForcast(){
+  // formatForcast(){
+  //   var f = this.forcast;
+  //   //gather the data we need for the view
+  //   for (var i = 0; i < f.length; i++){
+  //     var data = '{' +
+  //       '"date":"' + (f[i].time).substr(0,10) + '",' +
+  //       '"rain":' + f[i].rain + ',' +
+  //       '"snow":' + f[i].snow + ',' +
+  //       '"day_FeelsLike":' + f[i].forecastArr[0].feelsLike + ',' +
+  //       '"night_FeelsLike":' + f[i].forecastArr[1].feelsLike + ',' +
+  //       '}';
+  //       this.display.push(JSON.parse(data));
+  //   }
+  //   console.log(this.display);
+  // }
+
+  generateList(){
     var f = this.forcast;
-    //gather the data we need for the view
-    for (var i = 0; i < f.length; i++){
-      var data = '{' +
-        '"date":"' + (f[i].time).substr(0,10) + '",' +
-        '"rain":' + f[i].rain + ',' +
-        '"snow":' + f[i].snow + ',' +
-        '"day_FeelsLike":' + f[i].forecastArr[0].feelsLike + ',' +
-        '"night_FeelsLike":' + f[i].forecastArr[1].feelsLike + ',' +
-        '"day_WindGustSpeed":' + f[i].forecastArr[0].windGustSpeed + ',' +
-        '"night_WindGustSpeed":' + f[i].forecastArr[1].windGustSpeed +
-        '}';
-        this.display.push(JSON.parse(data));
+    this.toBringList.clear(); //clear the to-bring list
+    for (var i = 0; i < 5; i++){
+      // is it raining?
+      if (f[i].rain > 0.1){
+        this.toBringList.add('Boots');
+        this.toBringList.add('Umbrella');
+      }
+
+      // is it snowing?
+      if (f[i].snow > 0.1){
+          this.toBringList.add('Boots');
+      }
+
+      var min = Math.min(f[i].forecastArr[0].feelsLike, f[i].forecastArr[1].feelsLike);
+      var max = Math.max(f[i].forecastArr[0].feelsLike, f[i].forecastArr[1].feelsLike);
+      if (min > 2 && max < 15){
+        this.toBringList.add('Light Coat');
+      } else if (max <= 2) {
+        this.toBringList.add('Toque or Scarf');
+        this.toBringList.add('Heavy Coat');
+        this.toBringList.add('Boots');
+      }
+
+      //is it warm sunny?
+      if (f[i].sun_hours >= 5 && min > 10) {
+        this.toBringList.add('Sunscreen');
+        this.toBringList.add('Hat');
+      }
     }
-    console.log(this.display);
+  }
+
+  showData(){
+    var f = this.forcast;
+    var emailList = '\n';
+    var emailForcastList = '\n';
+    var list = document.getElementById('to_bring_list');
+    list.innerHTML = "";
+    this.toBringList.forEach(function(val1, val2, set) {
+      var node = document.createElement('li');
+      node.appendChild(document.createTextNode(val1));
+      list.appendChild(node);
+      emailList += '- ' + val1 + '\n';
+    });
+
+    var forcastList = document.getElementById('forcast_list');
+    forcastList.innerHTML = "";
+    for (var i = 0; i < 5; i++){
+      var li = document.createElement('li');
+      var ul = document.createElement('ul');
+      var li2 = document.createElement('li');
+      var li3 = document.createElement('li');
+      var s = f[i].forecastArr[0].feelsLike + '°c/' + f[i].forecastArr[1].feelsLike + '°c';
+      var t = '';
+      if (f[i].snow > 0.1 && f[i].rain > 0.1){
+        t += 'rain & snow';
+      } else if (f[i].rain > 0.1){
+        t += 'rain';
+      } else if (f[i].snow > 0.1){
+        t += 'snow';
+      } else {
+        t += 'clear day';
+      }
+      li2.appendChild(document.createTextNode(s));
+      li3.appendChild(document.createTextNode(t));
+      ul.appendChild(li2);
+      ul.appendChild(li3);
+      li.appendChild(document.createTextNode((f[i].time).substr(0,10)));
+      li.appendChild(ul);
+      forcastList.appendChild(li);
+      emailForcastList += '- ' + (f[i].time).substr(0,10) + '\n';
+      emailForcastList += '    * ' + s + '\n';
+      emailForcastList += '    * ' + t + '\n';
+    }
+    var forcastFormInput = document.getElementById('forcast_form_input');
+    var toBringFormInput = document.getElementById('to_bring_form_input');
+    forcastFormInput.innerHTML = emailForcastList;
+    toBringFormInput.innerHTML =  emailList;
+
+    var results = document.getElementById('results');
+    results.style.display = 'block';
   }
 
 }

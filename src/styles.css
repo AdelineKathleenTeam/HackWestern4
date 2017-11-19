@@ -1,1 +1,21 @@
 @import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');
+
+#to_bring_list_column {
+  text-align:left;
+}
+
+#forcast_list_column {
+  text-align:left;
+}
+
+#forcast_form_input, #to_bring_form_input{
+  visibility: hidden;
+}
+
+#email {
+  text-align:right;
+}
+
+#results{
+  display: none;
+}
