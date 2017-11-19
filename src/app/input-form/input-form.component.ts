@@ -118,6 +118,13 @@ export class InputFormComponent implements OnInit {
       emailList += '- ' + val1 + '\n';
     });
 
+    if (this.toBringList.size == 0){
+      emailList += '- weather is mild! Nothing special needed\n';
+      var node = document.createElement('li');
+      node.appendChild(document.createTextNode('weather is mild! Nothing special needed'));
+      list.appendChild(node);
+    }
+
     var forcastList = document.getElementById('forcast_list');
     forcastList.innerHTML = "";
     for (var i = 0; i < 5; i++){
@@ -136,7 +143,7 @@ export class InputFormComponent implements OnInit {
       cardIcon2.className = "material-icons md-48";
       cardIcon.innerHTML = "invert_colors";
       cardIcon2.innerHTML = "";
-      var s = f[i].forecastArr[1].feelsLike + '° / ' + f[i].forecastArr[0].feelsLike + '°';
+      var s = f[i].forecastArr[1].feelsLike + '°/' + f[i].forecastArr[0].feelsLike + '°';
       var t = '';
       if (f[i].snow > 0.1 && f[i].rain > 0.1){
         t += 'rain & snow';
@@ -172,7 +179,7 @@ export class InputFormComponent implements OnInit {
       emailForcastList += '    * ' + t + '\n';
 
       cardTitle.className = 'card-title text-muted';
-      cardSubtitle.className = 'card-subtitle text-success';
+      cardSubtitle.className = 'card-subtitle text-dark';
       cardText.className = 'card-text text-center';
       cardTitle.innerHTML = (f[i].time).substr(0,10);
       cardSubtitle.innerHTML = s;
