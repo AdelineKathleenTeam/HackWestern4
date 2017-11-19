@@ -1,15 +1,45 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <title>HackWestern4Project</title>
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="assets/forms.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <app-root></app-root>
+  <div class="jumbotron">
+    <app-root></app-root>
+  </div>
+  <div id="results" class="container">
+    <div class="row">
+      <div class="col-md-6" id="forcast_list_column">
+        <h3>
+          Forcast:
+        </h3>
+        <ul id="forcast_list">
+        </ul>
+      </div>
+      <div class="col-md-6" id="to_bring_list_column">
+        <h3>
+          To Bring:
+        </h3>
+        <ul id="to_bring_list">
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div id="email" class="col-md-12">
+        <form id="email_form" action="mailto:adeline.wang22@gmail.com?subject=Remenber To Pack These Items!" method="post" enctype="text/plain">
+          <input type="submit" class="btn btn-success" value="Send A Reminder to Yourself">
+        </form>
+        <textarea id="forcast_form_input" name="Forcast" form="email_form"></textarea>
+        <textarea id="to_bring_form_input" name="To Bring" form="email_form"></textarea>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
