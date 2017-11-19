@@ -4,7 +4,7 @@
     <div id="input_column" class="col-sm-4">
       <form (ngSubmit)="onSubmit()" #InputForm="ngForm">
         <div class="form-group">
-          <input type="text" class="form-control" id="val" placeholder="Enter Destination..." required [(ngModel)]="keyword.val" name="val">
+          <input type="text" class="form-control" id="val" placeholder="I am going to..." required [(ngModel)]="keyword.val" name="val">
         </div>
         <button type="submit" class="btn btn-secondary" [disabled]="!InputForm.form.valid">Enter</button>
       </form>
