@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Weather Demo</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:300,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+  
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+  <div class="container">
+  <header>
+    <div class="settings">
+      <div class="setting-icon gear">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" width="100" height="100" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M50 64c-7.4 0-13.4-6-13.4-13.4 0-7.4 6-13.4 13.4-13.4 7.4 0 13.4 6 13.4 13.4C63.4 58 57.4 64 50 64zM50 31.4c-10.6 0-19.2 8.6-19.2 19.2 0 10.6 8.6 19.2 19.2 19.2 10.6 0 19.2-8.6 19.2-19.2C69.2 40 60.6 31.4 50 31.4zM85.5 71.5l-6.6 8.2 -9.8-3.5 -10.4 5 -3.4 9.9H44.7l-3.4-9.9L30.9 76.3l-9.8 3.5 -6.6-8.2 5.6-8.8 -2.6-11.2 -8.8-5.5 2.3-10.3 10.4-1.2 7.2-9 -1.2-10.4 9.5-4.6 7.4 7.4h11.5l7.4-7.4 9.5 4.6 -1.2 10.4 7.2 9 10.4 1.2 2.3 10.3 -8.8 5.5 -2.6 11.3L85.5 71.5zM100 49.5l-4.8-20.9 -12.6-1.4 -3.2-4 1.4-12.6L61.5 1.2l-9 9h-5.2l-9-9 -19.3 9.3 1.4 12.6 -3.2 4L4.8 28.6 0 49.5l10.8 6.8 1.2 5L5.1 72l13.4 16.8 12-4.2 4.6 2.2 4.2 12h21.4l4.2-12 4.6-2.2 12 4.2 13.4-16.8 -6.8-10.8 1.1-5L100 49.5z"
+          />
+        </svg>
+      </div>
+      <div class="settings-container">
+        <div>
+          <input class="setting" id="f" name="unit" type="radio" value="f" checked>
+          <label for="f">Farenheight</label>
+        </div>
+        <div>
+          <input class="setting" id="c" name="unit" type="radio" value="c">
+          <label for="c">Celcius</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="setting-icon marker js-geolocation">
+      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" width="100" height="100" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+        <path d="M47.7 0.6C25.1 0.6 14 16.3 14 35.7c0 19.4 33.7 63.7 33.7 63.7s33.7-44.3 33.7-63.7C81.4 16.3 70.2 0.6 47.7 0.6zM47.7 47.8c-9.9 0-18-8-18-18 0-9.9 8-18 18-18s18 8 18 18C65.7 39.7 57.6 47.8 47.7 47.8z" />
+      </svg>
+    </div>
+
+
+
+    <form>
+      <input type="text" id="location" placeholder="Enter Location" value="">
+      <button type="submit"><span>Get Location!</span><span>&rarr;</span></button>
+    </form>
+  </header>
+
+  <div class="weather" id="weather">
+    <div class="city">
+      <h1></h1></div>
+  </div>
+
+  <ul class="five-day"></ul>
+  <div class="last-updated">Updated <span></span></div
+</div>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.simpleWeather/3.1.0/jquery.simpleWeather.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js'></script>
+
+    <script  src="js/index.js"></script>
+
+</body>
+
+<body>
+<h2>Send A Reminder to Yourself:</h2>
+
+<form action="mailto:adeline.wang22@gmail.com?subject=Bring To Pack These Items!" method="post" enctype="text/plain">
+Weather:<br>
+<input type="text" name="Weather"><br>
+Items to bring:<br>
+<input type="text" name="Items to bring" placeholder="Enter Location"><br><br>
+<input type="submit" value="Send">
+<input type="reset" value="Reset">
+</form>
+
+</body>
+
+</html>
