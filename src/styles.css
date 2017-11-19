@@ -2,10 +2,12 @@
 
 #to_bring_list_column {
   text-align:left;
+  font-size: 16px;
 }
 
 #forcast_list_column {
   text-align:left;
+  display: none;
 }
 
 #forcast_form_input, #to_bring_form_input{

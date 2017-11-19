@@ -6,23 +6,50 @@
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="assets/forms.css">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="text-dark">
   <div class="jumbotron">
     <app-root></app-root>
   </div>
   <div id="results" class="container">
     <div class="row">
-      <div class="col-md-6" id="forcast_list_column">
+      <div class="col-xs-1"></div>
+      <div class="card col-xs-2">
+        <div id="day_0" class="card-body">
+        </div>
+      </div>
+      <div class="card col-xs-2">
+        <div id="day_1" class="card-body">
+        </div>
+      </div>
+      <div class="card col-xs-2">
+        <div id="day_2" class="card-body">
+        </div>
+      </div>
+      <div class="card col-xs-2">
+        <div id="day_3" class="card-body">
+        </div>
+      </div>
+      <div class="card col-xs-2">
+        <div id="day_4" class="card-body">
+        </div>
+      </div>
+      <div class="col-xs-1"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-1" id="forcast_list_column">
         <h3>
-          Forcast:
+          Forecast:
         </h3>
         <ul id="forcast_list">
         </ul>
       </div>
+      <div class="col-md-1"></div>
       <div class="col-md-6" id="to_bring_list_column">
         <h3>
           To Bring:
@@ -36,8 +63,8 @@
         <form id="email_form" action="mailto:adeline.wang22@gmail.com?subject=Remenber To Pack These Items!" method="post" enctype="text/plain">
           <input type="submit" class="btn btn-success" value="Send A Reminder to Yourself">
         </form>
-        <textarea id="forcast_form_input" name="Forecast" form="email_form"></textarea>
         <textarea id="to_bring_form_input" name="To Bring" form="email_form"></textarea>
+        <textarea id="forcast_form_input" name="Forecast" form="email_form"></textarea>
       </div>
     </div>
   </div>

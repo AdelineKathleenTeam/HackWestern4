@@ -19,7 +19,6 @@ export class InputFormComponent implements OnInit {
 
   ngOnInit() {
     //init properties
-    this.title = 'this app!';
     this.weatherApi = axios.create({
       baseURL : 'https://hackathon.pic.pelmorex.com/api'
     });
@@ -79,7 +78,7 @@ export class InputFormComponent implements OnInit {
     for (var i = 0; i < 5; i++){
       // is it raining?
       if (f[i].rain > 0.1){
-        this.toBringList.add('Boots');
+        this.toBringList.add('Rain Boots');
         this.toBringList.add('Umbrella');
       }
 
@@ -126,16 +125,33 @@ export class InputFormComponent implements OnInit {
       var ul = document.createElement('ul');
       var li2 = document.createElement('li');
       var li3 = document.createElement('li');
-      var s = f[i].forecastArr[0].feelsLike + '°c/' + f[i].forecastArr[1].feelsLike + '°c';
+      var card = document.getElementById('day_' + i);
+      var cardTitle = document.createElement('h4');
+      var cardSubtitle = document.createElement('h2');
+      var cardText = document.createElement('p');
+      var cardIcon = document.createElement('i');
+      cardIcon.className = "material-icons md-48";
+      cardIcon.innerHTML = "invert_colors";
+      var s = f[i].forecastArr[1].feelsLike + '° / ' + f[i].forecastArr[0].feelsLike + '°';
       var t = '';
       if (f[i].snow > 0.1 && f[i].rain > 0.1){
         t += 'rain & snow';
+        cardIcon.className += " text-primary";
       } else if (f[i].rain > 0.1){
         t += 'rain';
+        cardIcon.className += " text-primary";
       } else if (f[i].snow > 0.1){
         t += 'snow';
+        cardIcon.innerHTML = "ac_unit";
+        cardIcon.className += " text-info";
+      } else if (f[i].sun_hours < 4){
+        t += 'cloudy';
+        cardIcon.innerHTML = "cloud";
+        cardIcon.className += " text-secondary";
       } else {
         t += 'clear day';
+        cardIcon.innerHTML = "wb_sunny";
+        cardIcon.className += " text-warning";
       }
       li2.appendChild(document.createTextNode(s));
       li3.appendChild(document.createTextNode(t));
@@ -147,6 +163,18 @@ export class InputFormComponent implements OnInit {
       emailForcastList += '- ' + (f[i].time).substr(0,10) + '\n';
       emailForcastList += '    * ' + s + '\n';
       emailForcastList += '    * ' + t + '\n';
+
+      cardTitle.className = 'card-title text-muted';
+      cardSubtitle.className = 'card-subtitle text-success';
+      cardText.className = 'card-text text-center';
+      cardTitle.innerHTML = (f[i].time).substr(0,10);
+      cardSubtitle.innerHTML = s;
+
+      cardText.appendChild(cardIcon);
+
+      card.appendChild(cardTitle);
+      card.appendChild(cardSubtitle);
+      card.appendChild(cardText);
     }
     var forcastFormInput = document.getElementById('forcast_form_input');
     var toBringFormInput = document.getElementById('to_bring_form_input');
