@@ -206,9 +206,9 @@ export class InputFormComponent implements OnInit {
       card.appendChild(cardSubtitle);
       card.appendChild(cardText);
     }
-    var forcastFormInput = document.getElementById('forcast_form_input');
+    // var forcastFormInput = document.getElementById('forcast_form_input');
     var toBringFormInput = document.getElementById('to_bring_form_input');
-    forcastFormInput.innerHTML = emailForcastList;
+    // forcastFormInput.innerHTML = emailForcastList;
     toBringFormInput.innerHTML =  emailList;
 
     var results = document.getElementById('results');
