@@ -11,6 +11,7 @@ export class InputFormComponent implements OnInit {
   keyword = new Input('');
   code : string = '';
   forcast : object = null; // data we get directly from the Weather Network API
+  location : string = '';
   toBringList = new Set();
   // display = []; // data formatted to be displayed in the html
   weatherApi = null; // axios object used to send requests to Weather Network
@@ -38,6 +39,8 @@ export class InputFormComponent implements OnInit {
     }).then(function(response){
       //save the code
       self.code = response.data.code;
+      self.location = response.data.name + ', ' + response.data.provCode + ', ' + response.data.countryDisplayCode;
+      console.log(response);
       self.sendWeatherRequest();
     });
   }
@@ -78,21 +81,31 @@ export class InputFormComponent implements OnInit {
     for (var i = 0; i < 5; i++){
       // is it raining?
       if (f[i].rain > 0.1){
-        this.toBringList.add('Rain Boots');
+        //we don't need rain shoes if we are bringing winter boots
+        if (!this.toBringList.has("Boots")) {
+          this.toBringList.add('Rain Shoes');
+        }
         this.toBringList.add('Umbrella');
       }
 
       // is it snowing?
       if (f[i].snow > 0.1){
+          //can leave the rain shoes at home now
+          this.toBringList.delete('Rain Shoes');
           this.toBringList.add('Boots');
       }
 
       var min = Math.min(f[i].forecastArr[0].feelsLike, f[i].forecastArr[1].feelsLike);
       var max = Math.max(f[i].forecastArr[0].feelsLike, f[i].forecastArr[1].feelsLike);
-      if (min > 2 && max < 15){
-        this.toBringList.add('Light Coat');
-      } else if (max <= 2) {
+      if (min > 0 && max < 15){
+        //if we already bring a heavy coat, we can leave the light coat behind
+        if (!this.toBringList.has("Heavy Coat")) {
+          this.toBringList.add('Light Coat');
+        }
+      } else if (max <= 0) {
         this.toBringList.add('Toque or Scarf');
+        //we are bringing the heavy coat, so we can leave the light coat behind now
+        this.toBringList.delete('Light Coat');
         this.toBringList.add('Heavy Coat');
         this.toBringList.add('Boots');
       }
@@ -110,14 +123,16 @@ export class InputFormComponent implements OnInit {
     var emailList = '\n';
     var emailForcastList = '\n';
     var list = document.getElementById('to_bring_list');
+    var listLabel = document.getElementById('to_bring_list_label');
     list.innerHTML = "";
+    listLabel.innerHTML = 'For ' + this.location + ', you should bring..';
+
     this.toBringList.forEach(function(val1, val2, set) {
       var node = document.createElement('li');
       node.appendChild(document.createTextNode(val1));
       list.appendChild(node);
       emailList += '- ' + val1 + '\n';
     });
-
     if (this.toBringList.size == 0){
       emailList += '- weather is mild! Nothing special needed\n';
       var node = document.createElement('li');
