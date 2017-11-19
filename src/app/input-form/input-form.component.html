@@ -1,0 +1,8 @@
+<div class="container">
+  <form (ngSubmit)="onSubmit()" #InputForm="ngForm">
+    <div class="form-group">
+      <input type="text" class="form-control" id="val" placeholder="Enter Destination.." required [(ngModel)]="keyword.val" name="val">
+    </div>
+    <button type="submit" class="btn btn-success" [disabled]="!InputForm.form.valid">Enter</button>
+  </form>
+</div>
